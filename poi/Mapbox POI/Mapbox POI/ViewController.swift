@@ -7,18 +7,17 @@
 //
 
 import UIKit
+import Mapbox
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var myMap: MGLMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        myMap.setCenterCoordinate(CLLocationCoordinate2D(latitude: 42.35852, longitude: -71.06094), zoomLevel: 8.0, animated: false);
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-
 }
