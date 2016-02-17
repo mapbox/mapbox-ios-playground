@@ -18,22 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ky2-FH-v3O">
-                                <rect key="frame" x="20" y="692" width="81" height="24"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZIP Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qap-qA-Rfy">
-                                        <rect key="frame" x="0.0" y="0.0" width="69" height="24"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q0l-RV-6AS">
-                                        <rect key="frame" x="69" y="0.0" width="12" height="24"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                    </textField>
-                                </subviews>
-                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFF-RM-dNc" customClass="MGLMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="673"/>
                                 <color key="backgroundColor" red="0.90970631544502623" green="0.90970631544502623" blue="0.90970631544502623" alpha="1" colorSpace="calibratedRGB"/>
@@ -41,6 +25,25 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/tmcw/ciko7ahr800habgm18g95zj3f"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ky2-FH-v3O">
+                                <rect key="frame" x="20" y="692" width="374" height="24"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZIP Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qap-qA-Rfy">
+                                        <rect key="frame" x="0.0" y="0.0" width="69" height="24"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q0l-RV-6AS">
+                                        <rect key="frame" x="69" y="0.0" width="305" height="24"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <connections>
+                                            <action selector="zipCodeChanged:forEvent:" destination="BYZ-38-t0r" eventType="editingChanged" id="YBP-Ee-jBN"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -49,6 +52,7 @@
                             <constraint firstAttribute="trailing" secondItem="BFF-RM-dNc" secondAttribute="trailing" id="EOG-UE-ySU"/>
                             <constraint firstItem="Ky2-FH-v3O" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="EhF-bz-UhJ"/>
                             <constraint firstItem="Ky2-FH-v3O" firstAttribute="top" secondItem="BFF-RM-dNc" secondAttribute="bottom" constant="19" id="K4P-5x-cnZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ky2-FH-v3O" secondAttribute="trailing" id="T74-Ao-gjx"/>
                             <constraint firstAttribute="bottom" secondItem="Ky2-FH-v3O" secondAttribute="bottom" constant="20" symbolic="YES" id="VMr-BO-mhs"/>
                         </constraints>
                     </view>

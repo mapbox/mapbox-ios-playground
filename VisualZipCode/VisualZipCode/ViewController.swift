@@ -17,6 +17,9 @@ class ViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil);
     }
+    
+    @IBAction func zipCodeChanged(sender: UITextField, forEvent event: UIEvent) {
+    }
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self);
@@ -28,8 +31,9 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // Fix the layout so that when the keyboard is toggled,
+    // the UI resizes to match
     func keyboardWillShow(notification: NSNotification) {
-        print("Got show");
         self.view.layoutIfNeeded()
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
             UIView.animateWithDuration(1, animations: {
@@ -38,5 +42,6 @@ class ViewController: UIViewController {
             })
         }
     }
+    
 }
 
