@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Mapbox
 import SwiftCSV
 import Alamofire
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var bottomConstant: NSLayoutConstraint!
+    
+    @IBOutlet weak var myMap: MGLMapView!
     
     var zipCodeData: [Dictionary<String, String>]!;
     
@@ -67,6 +70,19 @@ class ViewController: UIViewController {
                         ne[1] = lat;
                     }
                 }
+            }
+            if (ne[0] == sw[0] && ne[1] == sw[1]) {
+                print(ne, sw);
+                myMap.setCenterCoordinate(CLLocationCoordinate2D(
+                    latitude: ne[1],
+                    longitude: ne[0]), zoomLevel: 13, animated: true);
+            } else {
+                myMap.setVisibleCoordinateBounds(MGLCoordinateBounds(
+                    sw: CLLocationCoordinate2D(latitude: sw[1],
+                        longitude: sw[0]),
+                    ne: CLLocationCoordinate2D(latitude: ne[1],
+                        longitude: ne[0])
+                    ), animated: true)
             }
         }
     }
