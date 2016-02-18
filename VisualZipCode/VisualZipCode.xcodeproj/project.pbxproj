@@ -16,6 +16,10 @@
 		916B4EBE1C751DCE0033C8FD /* VisualZipCodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B4EBD1C751DCE0033C8FD /* VisualZipCodeUITests.swift */; };
 		916B4ECC1C751E730033C8FD /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916B4ECB1C751E730033C8FD /* Mapbox.framework */; };
 		916B4ECD1C751E730033C8FD /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 916B4ECB1C751E730033C8FD /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		916B4ED01C7540500033C8FD /* SwiftCSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916B4ECF1C7540500033C8FD /* SwiftCSV.framework */; };
+		916B4ED11C7540500033C8FD /* SwiftCSV.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 916B4ECF1C7540500033C8FD /* SwiftCSV.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		916B4ED31C7541A70033C8FD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916B4ED21C7541A70033C8FD /* Alamofire.framework */; };
+		916B4ED41C7541A70033C8FD /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 916B4ED21C7541A70033C8FD /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +47,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				916B4ECD1C751E730033C8FD /* Mapbox.framework in Embed Frameworks */,
+				916B4ED41C7541A70033C8FD /* Alamofire.framework in Embed Frameworks */,
+				916B4ED11C7540500033C8FD /* SwiftCSV.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,6 +70,8 @@
 		916B4EBD1C751DCE0033C8FD /* VisualZipCodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualZipCodeUITests.swift; sourceTree = "<group>"; };
 		916B4EBF1C751DCE0033C8FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		916B4ECB1C751E730033C8FD /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
+		916B4ECF1C7540500033C8FD /* SwiftCSV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftCSV.framework; sourceTree = "<group>"; };
+		916B4ED21C7541A70033C8FD /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +80,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				916B4ECC1C751E730033C8FD /* Mapbox.framework in Frameworks */,
+				916B4ED31C7541A70033C8FD /* Alamofire.framework in Frameworks */,
+				916B4ED01C7540500033C8FD /* SwiftCSV.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +105,8 @@
 		916B4E911C751DCE0033C8FD = {
 			isa = PBXGroup;
 			children = (
+				916B4ED21C7541A70033C8FD /* Alamofire.framework */,
+				916B4ECF1C7540500033C8FD /* SwiftCSV.framework */,
 				916B4ECB1C751E730033C8FD /* Mapbox.framework */,
 				916B4E9C1C751DCE0033C8FD /* VisualZipCode */,
 				916B4EB11C751DCE0033C8FD /* VisualZipCodeTests */,
