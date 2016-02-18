@@ -25,9 +25,9 @@ class ViewController: UIViewController {
         Alamofire.request(.GET, "http://macwright-org-tmp.s3.amazonaws.com/zipcodes.csv")
             .responseString { response in
                 var error: NSErrorPointer = nil
-                let csv = CSV(content: response.result.value,
+                if let csv = CSV(content: response.result.value,
                     delimiter: NSCharacterSet(charactersInString: ","),
-                    encoding: NSUTF8StringEncoding) {
+                    encoding: NSUTF8StringEncoding) as CSV? {
                     print(csv.rows)
                 }
         }
