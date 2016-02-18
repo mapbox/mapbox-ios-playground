@@ -45,14 +45,35 @@ class ViewController: UIViewController {
         }
         
         if self.zipCodeData != nil {
-            print(self.zipCodeData.filter(startsWithZip).count);
+            let zipCodes = self.zipCodeData.filter(startsWithZip);
+            var sw = [180.0, 90.0];
+            var ne = [-180.0, -90.0];
+            for code in zipCodes {
+                if let lng = code["Longitude"],
+                    lat = code["Latitude"] {
+                    let lat = Double(lat)!;
+                    let lng = Double(lng)!;
+                    if (sw[0] > lng) {
+                        sw[0] = lng;
+                    }
+                    if (sw[1] > lat) {
+                        sw[1] = lat;
+                    }
+                        
+                    if (ne[0] < lng) {
+                        ne[0] = lng;
+                    }
+                    if (ne[1] < lat) {
+                        ne[1] = lat;
+                    }
+                }
+            }
         }
     }
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self);
     }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
