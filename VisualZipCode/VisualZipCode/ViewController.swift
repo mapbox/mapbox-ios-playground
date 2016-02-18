@@ -13,6 +13,9 @@ import Alamofire
 class ViewController: UIViewController {
 
     @IBOutlet weak var bottomConstant: NSLayoutConstraint!
+    
+    var zipCodeData: [Dictionary<String, String>]!;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -21,19 +24,29 @@ class ViewController: UIViewController {
         loadZipCodes();
     }
     
-    func loadZipCodes() {
-        Alamofire.request(.GET, "http://macwright-org-tmp.s3.amazonaws.com/zipcodes.csv")
+    func loadZipCodes()  {
+        Alamofire.request(.GET, "https://macwright-org-tmp.s3.amazonaws.com/zipcodes.csv")
             .responseString { response in
-                var error: NSErrorPointer = nil
-                if let csv = CSV(content: response.result.value,
-                    delimiter: NSCharacterSet(charactersInString: ","),
-                    encoding: NSUTF8StringEncoding) as CSV? {
-                    print(csv.rows)
+                do {
+                    if let csv = try CSV(content: response.result.value,
+                        delimiter: NSCharacterSet(charactersInString: ","),
+                        encoding: NSUTF8StringEncoding) as CSV? {
+                            self.zipCodeData = csv.rows;
+                    }
+                } catch {
+                    print("Failure");
                 }
         }
     }
     
     @IBAction func zipCodeChanged(sender: UITextField, forEvent event: UIEvent) {
+        func startsWithZip(row: Dictionary<String, String>) -> Bool {
+            return row["Zipcode"]!.hasPrefix(sender.text!);
+        }
+        
+        if self.zipCodeData != nil {
+            print(self.zipCodeData.filter(startsWithZip).count);
+        }
     }
 
     deinit {
