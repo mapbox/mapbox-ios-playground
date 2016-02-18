@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftCSV
+import Alamofire
 
 class ViewController: UIViewController {
 
@@ -16,6 +18,19 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil);
+        loadZipCodes();
+    }
+    
+    func loadZipCodes() {
+        Alamofire.request(.GET, "http://macwright-org-tmp.s3.amazonaws.com/zipcodes.csv")
+            .responseString { response in
+                var error: NSErrorPointer = nil
+                let csv = CSV(content: response.result.value,
+                    delimiter: NSCharacterSet(charactersInString: ","),
+                    encoding: NSUTF8StringEncoding) {
+                    print(csv.rows)
+                }
+        }
     }
     
     @IBAction func zipCodeChanged(sender: UITextField, forEvent event: UIEvent) {
