@@ -9,16 +9,25 @@
 import Foundation
 import CoreLocation
 
+let D2R = M_PI / 180.0;
+let R2D = 180.0 / M_PI;
+
 func interpolate(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, f: Float, g: Float) -> CLLocationCoordinate2D {
     let A = sin((1 - f) * g) / sin(g);
     var B = sin(f * g) / sin(g);
-    var x = A * cos(start.latitude as Double) * cos(start.longitude) + B * cos(end.latitude) * cos(end.longitude);
-    var y = A * cos(start.latitude) * sin(start.longitude) + B * cos(end.latitude) * sin(end.longitude);
-    var z = A * sin(start.latitude) + B * Math.sin(end.latitude);
-    var lat = R2D * atan2(z, sqrt(pow(x, 2) + pow(y, 2)));
-    var lon = R2D * atan2(y, x);
-    return [lon, lat];
-    return start;
+    var x = A * cos(start.latitude) *
+        cos(start.longitude) + B *
+        cos(end.latitude) *
+        cos(end.longitude);
+    var y = A * cos(start.latitude) *
+        sin(start.longitude) + B *
+        cos(end.latitude) *
+        sin(end.longitude);
+    var z = A * sin(start.latitude) + B *
+        sin(end.latitude);
+    return CLLocationCoordinate2D(
+        latitude: R2D * atan2(z, sqrt(pow(x, 2) + pow(y, 2))),
+        longitude: R2D * atan2(y, x));
 }
 
 func greatCircle(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, points: Int) -> Bool {
