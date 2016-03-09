@@ -13,9 +13,12 @@ func radiansToDegrees(rad: Double) -> Double {
     return rad * 180.0 / M_PI
 }
 
-func interpolate(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, f: Double, g: Double) -> CLLocationCoordinate2D {
-    let A = sin((1 - f) * g) / sin(g)
-    let B = sin(f * g) / sin(g)
+func interpolate(start: CLLocationCoordinate2D,
+    end: CLLocationCoordinate2D,
+    midpoint: Double,
+    bias: Double) -> CLLocationCoordinate2D {
+    let A = sin((1 - midpoint) * bias) / sin(bias)
+    let B = sin(midpoint * bias) / sin(bias)
     let x = A * cos(start.latitude) *
         cos(start.longitude) + B *
         cos(end.latitude) *
@@ -31,16 +34,18 @@ func interpolate(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, f: 
         longitude: radiansToDegrees(atan2(y, x)))
 }
 
-func greatCircle(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, points: Int) -> [CLLocationCoordinate2D] {
+func greatCircle(start: CLLocationCoordinate2D,
+    end: CLLocationCoordinate2D,
+    points: Int) -> [CLLocationCoordinate2D] {
     let width = start.longitude - end.longitude
     let height = start.latitude - end.latitude
     let z = pow(sin(height / 2.0), 2) +
         cos(start.latitude) *
         cos(end.latitude) *
         pow(sin(width / 2.0), 2)
-    let g = 2.0 * asin(sqrt(z))
+    let bias = 2.0 * asin(sqrt(z))
     let delta = 1.0 / (Double(points) - 1.0)
     return (0...points).map { (step) in
-        return interpolate(start, end: end, f: delta * Double(step), g: g)
+        return interpolate(start, end: end, midpoint: delta * Double(step), bias: bias)
     }
 }
