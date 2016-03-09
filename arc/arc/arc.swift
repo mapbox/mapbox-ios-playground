@@ -9,8 +9,13 @@
 import Foundation
 import CoreLocation
 
-let D2R = M_PI / 180.0;
-let R2D = 180.0 / M_PI;
+func degreesToRadians(deg: Double) -> Double {
+    return deg * M_PI / 180.0;
+}
+
+func radiansToDegrees(rad: Double) -> Double {
+    return rad * 180.0 / M_PI;
+}
 
 func interpolate(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, f: Double, g: Double) -> CLLocationCoordinate2D {
     let A = sin((1 - f) * g) / sin(g);
@@ -26,8 +31,8 @@ func interpolate(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, f: 
     let z = A * sin(start.latitude) + B *
         sin(end.latitude);
     return CLLocationCoordinate2D(
-        latitude: R2D * atan2(z, sqrt(pow(x, 2) + pow(y, 2))),
-        longitude: R2D * atan2(y, x));
+        latitude:  radiansToDegrees(atan2(z, sqrt(pow(x, 2) + pow(y, 2)))),
+        longitude: radiansToDegrees(atan2(y, x)));
 }
 
 func greatCircle(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, points: Int) -> [CLLocationCoordinate2D] {
@@ -39,7 +44,7 @@ func greatCircle(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, poi
         pow(sin(width / 2.0), 2);
     let g = 2.0 * asin(sqrt(z));
     let delta = 1.0 / (Double(points) - 1.0);
-    return (0...points).map { (i) in
-        return interpolate(start, end: end, f: delta * Double(i), g: g);
+    return (0...points).map { (step) in
+        return interpolate(start, end: end, f: delta * Double(step), g: g);
     };
 }
