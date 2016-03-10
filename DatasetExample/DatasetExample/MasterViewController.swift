@@ -7,19 +7,18 @@
 //
 
 import UIKit
+import CoreLocation
 import Foundation
 
-class MasterViewController: UITableViewController {
+class MasterViewController: UITableViewController, CLLocationManagerDelegate {
 
     var detailViewController: DetailViewController? = nil
     var objects = [AnyObject]()
+    let locationManager = CLLocationManager()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       
-       
         
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
@@ -30,7 +29,43 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
+        locationManager.delegate = self
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .AuthorizedAlways:
+            print("always")
+            self.locationManager.startMonitoringSignificantLocationChanges()
+        case .NotDetermined:
+            print("Requesting")
+            locationManager.requestAlwaysAuthorization()
+        case .AuthorizedWhenInUse, .Restricted, .Denied:
+            let alertController = UIAlertController(
+                title: "Background Location Access Disabled",
+                message: "In order to be notified about adorable kittens near you, please open this app's settings and set location access to 'Always'.",
+                preferredStyle: .Alert)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            let openAction = UIAlertAction(title: "Open Settings", style: .Default) { (action) in
+                if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
+                    UIApplication.sharedApplication().openURL(url)
+                }
+            }
+            alertController.addAction(openAction)
+        }
        
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("inserting objects")
+        if locations.count > 0 {
+            objects.insert(locations[0], atIndex: 0)
+            print(objects.count)
+            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -70,14 +105,15 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(objects.count)
         return objects.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
-        let object = objects[indexPath.row] as! NSDate
-        cell.textLabel!.text = object.description
+        let object = objects[indexPath.row] as! CLLocation
+        cell.textLabel!.text = String(object.speed)
         return cell
     }
 
