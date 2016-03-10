@@ -7,15 +7,20 @@
 //
 
 import UIKit
+import Foundation
 
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var objects = [AnyObject]()
-
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
+       
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
@@ -25,6 +30,7 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+       
     }
 
     override func viewWillAppear(animated: Bool) {
